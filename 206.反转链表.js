@@ -1,7 +1,7 @@
 /*
- * @lc app=leetcode.cn id=148 lang=javascript
+ * @lc app=leetcode.cn id=206 lang=javascript
  *
- * [148] 排序链表
+ * [206] 反转链表
  */
 
 // @lc code=start
@@ -16,7 +16,7 @@
  * @param {ListNode} head
  * @return {ListNode}
  */
-var sortList = function(head) {
+var reverseList = function(head) {
     // 缓存链表各元素的值
     let cache = []
     let ele = {
@@ -27,9 +27,7 @@ var sortList = function(head) {
         ele = ele.next
     }
     // 将缓存值翻转
-    cache.sort((m,n) => {
-        return m - n
-    })
+    cache.reverse()
     let temp = {
         next: head
     }

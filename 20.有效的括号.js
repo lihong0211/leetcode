@@ -15,15 +15,24 @@ var isValid = function(s) {
         '{': '}',
         '[': ']'
     }
-    let r = []
+
+    // let r = []
+    // s.split('').forEach(item => {
+    //     r.push(item)
+    //     if (r[r.length - 1] === map[r[r.length - 2]]) {
+    //         r = r.slice(0, r.length -2)
+    //     }
+    // })
     
-    s.split('').forEach(item => {
-        r.push(item)
-        if (r[r.length - 1] === map[r[r.length - 2]]) {
-            r = r.slice(0, r.length -2)
+    let stack = []
+    for(let i = 0; i < s.length; i++) {
+        if (s[i] in map) {
+            stack.push(s[i])
+        } else if (s[i] !== map[stack.pop()]) {
+           return false
         }
-    })
-    return !r.length
+    }
+     return !stack.length
 };
 // @lc code=end
 
