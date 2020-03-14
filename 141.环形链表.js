@@ -35,23 +35,35 @@ class NodeList {
  * @param {ListNode} head
  * @return {boolean}
  */
+// var hasCycle = function(head) {
+//     // 龟兔赛跑， 有环到情况下兔子会跑到乌龟后面去
+//     if (!head) return false
+//     let slow = head
+//     let fast = head.next
+//     while (true) {
+//         // 没有快指针-即只有一个元素
+//         // 快指针到末尾了
+//         if(!fast || !fast.next) {
+//             return false
+//         } else if (fast == slow || slow === fast.next) {
+//             return true
+//         } else {
+//             slow = slow.next // 移动一位
+//             fast = fast.next.next // 移动两位
+//         }
+//     }
+// };
 var hasCycle = function(head) {
-    // 龟兔赛跑， 有环到情况下兔子会跑到乌龟后面去
-    if (!head) return false
     let slow = head
-    let fast = head.next
-    while (true) {
-        // 没有快指针-即只有一个元素
-        // 快指针到末尾了
-        if(!fast || !fast.next) {
-            return false
-        } else if (fast == slow || slow === fast.next) {
+    let fast = head
+    while(fast && fast.next) {
+        slow = slow.next
+        fast = fast.next.next
+        if (fast === slow) {
             return true
-        } else {
-            slow = slow.next // 移动一位
-            fast = fast.next.next // 移动两位
-        }
+        } 
     }
-};
+    return false
+}
 // @lc code=end
 
