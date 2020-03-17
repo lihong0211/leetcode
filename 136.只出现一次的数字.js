@@ -10,7 +10,11 @@
  * @return {number}
  */
 var singleNumber = function(nums) {
-
+  for (let i = 0, len = nums.length; i < len; i++) {
+    if (nums.lastIndexOf(nums[i]) === i) {
+      return nums[i]
+    }
+  }
 };
 // @lc code=end
 
