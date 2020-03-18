@@ -13,6 +13,10 @@
 var rotate = function(nums, k) { 
     // 这样做不满足原地算法
     // return nums.slice(nums.length - k).concat(nums.slice(0, nums.length - k))
+    
+    for(let i = 0; i < k; i++) {
+      nums.unshift(nums.pop())
+    }
 };
 // @lc code=end
 
