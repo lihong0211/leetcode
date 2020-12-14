@@ -26,19 +26,23 @@ var removeNthFromEnd = function(head, n) {
         arr.push(temp.next.val)
         temp.next = temp.next.next
     }
-    console.log(arr)
+    if (arr.length === 1) {
+        return null
+    }
+    arr.splice(arr.length - n, 1)
     let ele = {
         next: head
     }
     let cur = ele
-    while(cur.next) {
-        if(cur.next.val == arr[arr.length - n]) {
-            cur.next = cur.next.next
-        }else {
-            cur = cur.next 
+    while(arr.length) {
+        if (arr.length === 1) {
+            cur.next.val = arr.shift()
+            cur.next.next = null
+            return head
         }
+        cur.next.val = arr.shift()
+        cur.next = cur.next.next
     }
-    return ele.next
 };
 // @lc code=end
 

@@ -72,7 +72,7 @@ var detectCycle = function(head) {
         fast = fast.next.next
         // 找到相遇的节点
         if (fast === slow) {
-            // 从该节点开始都慢跑 再找相遇节点
+            // 从该节点开始都慢跑 再找环的开始节点
             while (slow && start) {
                 if (slow === start) return slow
                 slow = slow.next
