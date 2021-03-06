@@ -62,26 +62,28 @@
 //     return null
 // }
 
-var detectCycle = function(head) {
-    // 快，慢，从头开始的3个指针
+const detectCycle = head => {
     let [slow, fast, start] = [head, head, head]
-    
-    while(fast && fast.next) {
-        // 分快慢跑
+
+    while (fast && fast.next) {
         slow = slow.next
         fast = fast.next.next
-        // 找到相遇的节点
-        if (fast === slow) {
-            // 从该节点开始都慢跑 再找环的开始节点
+
+        if (slow === fast) {
             while (slow && start) {
-                if (slow === start) return slow
+                if (slow === start) {
+                    return slow
+                }
                 slow = slow.next
                 start = start.next
             }
-        } 
+        }
     }
+
     return null
 }
+
+
 
 // @lc code=end
 

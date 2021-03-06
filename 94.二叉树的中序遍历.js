@@ -16,7 +16,7 @@
  * @param {TreeNode} root
  * @return {number[]}
  */
-var inorderTraversal = function(root, arr = []) {
+const inorderTraversal = (root, arr = []) => {
     if(root) {
         inorderTraversal(root.left, arr)
         arr.push(root.val)

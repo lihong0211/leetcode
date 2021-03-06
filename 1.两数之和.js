@@ -10,27 +10,29 @@
  * @param {number} target
  * @return {number[]}
  */
-var twoSum = function(nums, target) {
-    // 乞丐版
-    // 两层循环，时间复杂度O(n^2),空间复杂度O(1)
-    // for(let i = 0; i < nums.length; i++) {
-    //     for(let j = 0; j < nums.length; j++) {
-    //         if (nums[i] + nums[j] === target && i !== j) {
-    //             return [i, j]
-    //         }
-    //     }
-    // }
 
+// 双循环
+const twoSum = (nums, target) => {
+    for(let i = 0; i < nums.length; i++) {
+        for(let j = 0; j < nums.length; j++) {
+            if (nums[i] + nums[j] === target && i !== j) {
+                return [i, j]
+            }
+        }
+    }
+}
+// 引用值
+const twoSum = (nums, target) => {
     let obj = {}
-    // 一层循环，时间复杂度O(n)，空间复杂度O(n),属于空间换时间
-    for(let i = 0; i < nums.length; i++ ){
+
+    for(let i = 0; i < nums.length; i++) {
         let num = nums[i]
         if (num in obj) {
             return [obj[num], i]
         } else {
-            obj[target-num] = i
+            obj[target - num] = i
         }
     }
-};
+}
 // @lc code=end
 

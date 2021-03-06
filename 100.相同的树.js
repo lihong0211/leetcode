@@ -17,7 +17,8 @@
  * @param {TreeNode} q
  * @return {boolean}
  */
-var isSameTree = function(p, q) {
+// 递归判断左右节点
+const isSameTree = (p, q) => {
     if (p === null && q === null) {
         return true
     } else if (p === null || q === null) {
@@ -25,7 +26,8 @@ var isSameTree = function(p, q) {
     } else if (p.val !== q.val) {
         return false
     }
+
     return isSameTree(p.left, q.left) && isSameTree(p.right, q.right)
-};
+}
 // @lc code=end
 
