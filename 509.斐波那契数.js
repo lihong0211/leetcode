@@ -31,7 +31,7 @@ const fib = N => {
     }
 }
 
-
+// 尾调用优化
 const fib = N => {
     const fibImpl = (a, b, n) => {
         if (n === 0) {

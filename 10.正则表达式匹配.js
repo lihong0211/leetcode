@@ -10,7 +10,7 @@
  * @param {string} p
  * @return {boolean}
  */
-var isMatch = function(s, p) {
+const isMatch = (s, p) => {
     // 边界情况，如果 s 和 p 都为空，说明处理结束了，返回true，否则返回false 
     if (p.length <=0) {
         return !s.length

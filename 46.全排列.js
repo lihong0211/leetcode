@@ -9,7 +9,7 @@
  * @param {number[]} nums
  * @return {number[][]}
  */
-var permute = function(nums) {
+const permute = (nums) => {
     const backtrack = (list, temp, nums) => {
         if (temp.length === nums.length) {
             return list.push([...temp])
