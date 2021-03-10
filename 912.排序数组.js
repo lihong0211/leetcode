@@ -33,19 +33,19 @@
 // };
 
 // 冒泡
-// const sortArray = nums => {
-//     let temp
-//     for (let i = 0; i < nums.length; i++) {
-//         for (let j = 0; j < nums.length - i; j++) {
-//             if (nums[j] > nums[j + 1]) {
-//                 temp = nums[j + 1]
-//                 nums[j + 1] = nums[j]
-//                 nums[j] = temp
-//             }
-//         }
-//     }
-//     return nums
-// }
+const sortArray = nums => {
+    let temp
+    for (let i = 0; i < nums.length; i++) {
+        for (let j = 0; j < nums.length - i; j++) {
+            if (nums[j] > nums[j + 1]) {
+                temp = nums[j + 1]
+                nums[j + 1] = nums[j]
+                nums[j] = temp
+            }
+        }
+    }
+    return nums
+}
 
 // 选择排序  关键是两两比较，小的提到最前
 // const sortArray = nums => {

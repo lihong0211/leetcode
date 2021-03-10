@@ -11,7 +11,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/78.子集.js"
+            "program": "${workspaceFolder}/41.缺失的第一个正数.js"
         }
     ]
 }

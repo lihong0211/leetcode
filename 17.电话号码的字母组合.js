@@ -9,9 +9,11 @@
  * @param {string} digits
  * @return {string[]}
  */
-var letterCombinations = function(digits) {
-
-    let map = {
+const letterCombinations = digits  => {
+    if (!digits.length) return []
+    if (digits.length === 1) return map[digits].split('')
+    
+    const map = {
         '2': 'abc',
         '3': 'def',
         '4': 'ghi',
@@ -21,36 +23,32 @@ var letterCombinations = function(digits) {
         '8': 'tuv',
         '9': 'wxyz'
     }
-
-    if (!digits.length) return []
-    if (digits.length === 1) return map[digits].split('')
-    
-    let r = []
-
+    const ret = []
     digits.split('').forEach(item => {
-        r.push(map[item])
+        ret.push(map[item])
     })
 
-    let comb = arr => {
-        if (arr.length > 1) {
-            let left = arr[0] instanceof Array ? arr[0] :  arr[0].split('')
-            let right = arr[1].split('')
-            let newItem = []
-            for(let i = 0, len = left.length; i< len; i++) {
-                for(let j = 0, len = right.length; j < len; j++) {
-                    newItem.push(left[i] + right[j])
-                }
-            }
-            arr.splice(0, 2, newItem)
-            if (arr.length > 1) {
-                comb(arr)
+    const comb = arr => {
+        const left = Array.isArray(arr[0]) ? arr[0] : arr[0].split('')
+        const right = arr[1]
+        const newItem = []
+        // 合并数组的第一个项，并替换掉第一二项
+        for (let i = 0; i < left.length; i ++) {
+            for (let j = 0; j < right .length; j++) {
+                newItem.push(left[i] + right[j])
             }
         }
+
+        arr.splice(0, 2, newItem)
+        // 递归执行所有项
+        if (arr.length > 1) {
+            comb(arr)
+        }
+
     }
 
-    comb(r)
-    return r[0]
-    
+    comb(ret)
+    return ret[0]
 };
 // @lc code=end
 
