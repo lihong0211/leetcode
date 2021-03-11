@@ -18,9 +18,6 @@
  * @return {ListNode}
  */
 var mergeTwoLists = function(l1, l2) {
-<<<<<<< HEAD
-
-=======
     let toArray = head => {
         let arr = []
         let temp = {
@@ -54,7 +51,6 @@ var mergeTwoLists = function(l1, l2) {
         cur.next = ele.next.next
     }
     return cur.next
->>>>>>> 41e8f49b5d0d8585f41e324840f5def8f5c564f0
 };
 // @lc code=end
 
