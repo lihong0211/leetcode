@@ -27,7 +27,17 @@
 //     }
 //     return arr
 // };
-// FIXME: 迭代不易理解
+
+// 递归
+const preorderTraversal = (root, arr = []) => {
+    if (root) {
+        arr.push(root.val)
+        preorderTraversal(root.left, arr)
+        preorderTraversal(root.right, arr)
+    }
+}
+
+// 迭代不易理解
 var preorderTraversal = function(root) { 
     let ret = []
     let stack = []
@@ -43,5 +53,24 @@ var preorderTraversal = function(root) {
     }
     return ret
 };
+
+// 迭代
+const preorderTraversal = root => {
+    let ret = []
+    let stack = []
+    let cur = root
+
+    while (cur & stack.length) {
+        while (cur) {
+            ret.push(cur.val)
+            stack.push(cur)
+            cur = cur.left
+        }
+        cur = stack.pop()
+        cur = cur.right
+    }
+
+    return ret
+}
 // @lc code=end
 

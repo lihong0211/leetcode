@@ -10,30 +10,30 @@
  * @return {number[]}
  */
 // 速度还可以  空间复杂度高
-// var sortArrayByParityII = function(A) {
-//     let arrA = A.filter(item => item % 2) // 奇数
-//     let arrB = A.filter(item => !(item % 2)) // 偶数
-//     let arr = []
+// const sortArrayByParityII = arr => {
+//     let arrA = arr.filter(item => item % 2) // 奇数
+//     let arrB = arr .filter(item => !(item % 2)) // 偶数
+//     let ret = []
 //     for(let i = 0; i < arrA.length; i++) {
-//         arr.push(arrB[i])
-//         arr.push(arrA[i])
+//         ret.push(arrB[i])
+//         ret.push(arrA[i])
 //     }
-//     return arr
+//     return ret
 // };
-var sortArrayByParityII = function(arr) {
-    let a = 0 // 奇数标记
-    let b = 1 // 偶数标记
-    let r = []
-    arr.forEach(item => {
-        if (item % 2) {
-            r[b] = item
+
+const sortArrayByParityII = arr => {
+    let [a, b] = [0, 1]
+    const [ret, len] = [[], arr.length]
+    for (let i = 0; i < len; i++) {
+        if (arr[i] % 2) {
+            ret[b] = arr[i]
             b += 2
         } else {
-            r[a] = item
+            ret[a] = arr[i]
             a += 2
         }
-    })
-    return r
-};
+    }
+    return ret
+}
 // @lc code=end
 

@@ -9,30 +9,41 @@
  * @param {string} s
  * @return {boolean}
  */
-var isValid = function(s) {
-    let map = {
+// var isValid = function(s) {
+//     let map = {
+//         '(': ')',
+//         '{': '}',
+//         '[': ']'
+//     }
+//     let stack = []
+//     for(let i = 0; i < s.length; i++) {
+//         if (s[i] in map) {
+//             stack.push(s[i])
+//         } else if (s[i] !== map[stack.pop()]) {
+//            return false
+//         }
+//     }
+//      return !stack.length
+// };
+
+const isValid = str => {
+    const map = {
         '(': ')',
         '{': '}',
         '[': ']'
     }
+    const stack = []
 
-    // let r = []
-    // s.split('').forEach(item => {
-    //     r.push(item)
-    //     if (r[r.length - 1] === map[r[r.length - 2]]) {
-    //         r = r.slice(0, r.length -2)
-    //     }
-    // })
-    
-    let stack = []
-    for(let i = 0; i < s.length; i++) {
-        if (s[i] in map) {
-            stack.push(s[i])
-        } else if (s[i] !== map[stack.pop()]) {
-           return false
+    for (let i = 0; i < str.length; i++) {
+        if (str[i] in map) {
+            stack.push(str[i])
+        } else if (str[i] !== map[stack.pop()]) {
+            return false
+            
         }
     }
-     return !stack.length
-};
+
+    return !stack.length
+}
 // @lc code=end
 

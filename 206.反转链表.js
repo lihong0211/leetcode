@@ -39,17 +39,18 @@
 //     // 返回链表
 //     return head
 // };
-var reverseList = function(head) {
+
+const reverseList = head => {
     let cur = head
     let prev = null
 
-    while(cur !== null) {
-        // [cur.next, prev, cur] = [prev, cur, cur.next]
+    while (cur !== null) {
         let next = cur.next
         cur.next = prev
         prev = cur
         cur = next
     }
+
     return prev
 }
 // @lc code=end

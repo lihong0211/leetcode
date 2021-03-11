@@ -22,7 +22,6 @@ var findKthLargest = function(nums, k) {
             }
         }
     }
-    // nums.sort((m, n) => m - n)
     return nums[nums.length -k]
 };
 

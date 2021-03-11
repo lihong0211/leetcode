@@ -11,7 +11,7 @@
  */
 var MyCircularQueue = function(k) {
     this.length = k
-    this.list = Array(k)
+    this.list = []
 };
 
 /**
@@ -21,9 +21,7 @@ var MyCircularQueue = function(k) {
  */
 MyCircularQueue.prototype.enQueue = function(value) {
     if (this.list.length < this.length) {
-        console.log('yes')
         this.list.push(value)
-        console.log(this)
         return true
     }
     return false
@@ -46,7 +44,7 @@ MyCircularQueue.prototype.deQueue = function() {
  * @return {number}
  */
 MyCircularQueue.prototype.Front = function() {
-    return this.list.length ? this.list.shift() : -1
+    return this.list.length ? this.list[0] : -1
 };
 
 /**
@@ -54,7 +52,7 @@ MyCircularQueue.prototype.Front = function() {
  * @return {number}
  */
 MyCircularQueue.prototype.Rear = function() {
-    return this.list.length ? this.list.pop() : -1
+    return this.list.length ? this.list[this.list.length - 1] : -1
 };
 
 /**

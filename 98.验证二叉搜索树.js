@@ -63,94 +63,111 @@
 // };
 
 // 看了别人的   自己这个一坨屎
-var isValidBST = function(root) {
+// var isValidBST = function(root) {
   
-  if (!root) return true
-  // 层级遍历
-  var data = levelOrder(root)
-  // 构造二叉搜索树
-  var rightTree = new Tree(data)
-  // 比较两个对象是否相等
-  return isObjectValueEqual(root, rightTree)
-}
+//   if (!root) return true
+//   // 层级遍历
+//   var data = levelOrder(root)
+//   // 构造二叉搜索树
+//   var rightTree = new Tree(data)
+//   // 比较两个对象是否相等
+//   return isObjectValueEqual(root, rightTree)
+// }
 
-// TODO: 层级遍历
-const levelOrder = root => {
-  if (!root) return []
-  let res = [], queue = [root]
-  while (queue.length) {
-    let arr = [], temp = []
-    while (queue.length) {
-      let curr = queue.shift()
-      arr.push(curr.val)
-      if (curr.left) temp.push(curr.left)
-      if (curr.right) temp.push(curr.right)
-    }
-    queue = temp
-    res.push(arr)
-  }
-  let arr = []
-  res.forEach(item => {
-    arr = arr.concat(item)
-  })
-  return arr
-}
+// // TODO: 层级遍历
+// const levelOrder = root => {
+//   if (!root) return []
+//   let res = [], queue = [root]
+//   while (queue.length) {
+//     let arr = [], temp = []
+//     while (queue.length) {
+//       let curr = queue.shift()
+//       arr.push(curr.val)
+//       if (curr.left) temp.push(curr.left)
+//       if (curr.right) temp.push(curr.right)
+//     }
+//     queue = temp
+//     res.push(arr)
+//   }
+//   let arr = []
+//   res.forEach(item => {
+//     arr = arr.concat(item)
+//   })
+//   return arr
+// }
 
-class Node {
-  constructor (val) {
-    this.val = val
-    this.left = this.right = null
-  }
-}
+// class Node {
+//   constructor (val) {
+//     this.val = val
+//     this.left = this.right = null
+//   }
+// }
 
-class Tree {
-  constructor (data) {
-    var root = new Node(data.shift())
-    data.forEach(item => {
-      this.insert(root, item)
-    })
-    return root
-  }
-  insert(preNode,val) {
-    if (preNode.left && preNode.val > val) {
-      this.insert(preNode.left, val)
-    } else if (preNode.right && preNode.val < val) {
-      this.insert(preNode.right, val)
-    } else if (!preNode.left && preNode.val > val) {
-      preNode.left = new Node(val)
-    } else if (!preNode.right && preNode.val < val) {
-      preNode.right = new Node(val)
-    }
-  }
-}
+// class Tree {
+//   constructor (data) {
+//     var root = new Node(data.shift())
+//     data.forEach(item => {
+//       this.insert(root, item)
+//     })
+//     return root
+//   }
+//   insert(preNode,val) {
+//     if (preNode.left && preNode.val > val) {
+//       this.insert(preNode.left, val)
+//     } else if (preNode.right && preNode.val < val) {
+//       this.insert(preNode.right, val)
+//     } else if (!preNode.left && preNode.val > val) {
+//       preNode.left = new Node(val)
+//     } else if (!preNode.right && preNode.val < val) {
+//       preNode.right = new Node(val)
+//     }
+//   }
+// }
 
-function isObjectValueEqual(a, b) {
-  if ((!a && b) || (!b && a)) return false 
-  if (!a && !b) return true
-  var aProps = a && Object.keys(a);
-  var bProps = b && Object.keys(b);
-   if (aProps && bProps && aProps.length != bProps.length) {
-        return false;
-   }
-   for (var i = 0; i < aProps.length; i++) {
-     var propName = aProps[i]
+// function isObjectValueEqual(a, b) {
+//   if ((!a && b) || (!b && a)) return false 
+//   if (!a && !b) return true
+//   var aProps = a && Object.keys(a);
+//   var bProps = b && Object.keys(b);
+//    if (aProps && bProps && aProps.length != bProps.length) {
+//         return false;
+//    }
+//    for (var i = 0; i < aProps.length; i++) {
+//      var propName = aProps[i]
 
-     var propA = a[propName]
-     var propB = b[propName]
-     if ((typeof (propA) === 'object')) {
-       if (!isObjectValueEqual(propA, propB)) return false
-     } else if (propA !== propB) {
-       return false
-     } else { }
-   }
- return true
- }
- // 这是哪个大神写的  我直接跪下！！
- var isValidBST = function(root, min = -Infinity, max = Infinity) {
+//      var propA = a[propName]
+//      var propB = b[propName]
+//      if ((typeof (propA) === 'object')) {
+//        if (!isObjectValueEqual(propA, propB)) return false
+//      } else if (propA !== propB) {
+//        return false
+//      } else { }
+//    }
+//  return true
+//  }
+//  // 这是哪个大神写的  我直接跪下！！
+ const isValidBST = (root, min = -Infinity, max = Infinity) => {
   if (!root) return true;
   if (root.val <= min || root.val >= max) return false;
   return isValidBST(root.left, min, root.val) && isValidBST(root.right, root.val, max);
 };
 
+
+// const isValidBST = root => {
+//   const inorderTraversal = (root, arr = []) => {
+//     if(root) {
+//         inorderTraversal(root.left, arr)
+//         arr.push(root.val)
+//         inorderTraversal(root.right, arr)
+//     }
+//     return arr
+//   }
+
+//   const arr = inorderTraversal(root)
+//   // console.log(arr.join())
+//   // console.log(arr.sort((m, n) => m - n).join())
+
+//   return arr.join() === arr.sort((m, n) => m - n).join() && arr.join() === [...new Set([...arr].join())]
+// }
 // @lc code=end
 

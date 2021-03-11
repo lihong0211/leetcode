@@ -1,25 +1,27 @@
 /*
- * @lc app=leetcode.cn id=21 lang=javascript
+ * @lc app=leetcode.cn id=23 lang=javascript
  *
- * [21] 合并两个有序链表
+ * [23] 合并K个升序链表
  */
 
 // @lc code=start
 /**
  * Definition for singly-linked list.
- * function ListNode(val) {
- *     this.val = val;
- *     this.next = null;
+ * function 
+ * (val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
  * }
  */
 /**
- * @param {ListNode} l1
- * @param {ListNode} l2
+ * @param {ListNode[]} lists
  * @return {ListNode}
  */
-var mergeTwoLists = function(l1, l2) {
+var mergeKLists = function(lists) {
+    const len = lists.length
+    if(len == 0) return null;
+    if(len == 1) return lists[0]
     let list = []
-    const lists = [l1, l2]
     lists.forEach(item => {
         while(item) {
             list.push(item.val)
