@@ -13,7 +13,7 @@
 var intersection = function(nums1, nums2) {
   let arr = []
   nums1.forEach(item => {
-    if (nums2.indexOf(item) !== -1 && arr.indexOf(item) === -1) {
+    if (nums2.includes(item) && !arr.includes(item)) {
       arr.push(item)
     }
   })

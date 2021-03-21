@@ -9,7 +9,7 @@
  * @param {number} n
  * @return {number}
  */
-var climbStairs = function(n) {
+const climbStairs = n => {
     // 暴力递归  只能超时了。。。
     // if(n <=2) return n
     // return climbStairs(n - 2) + climbStairs(n - 1)

@@ -21,5 +21,7 @@ const minimumTotal = triangle => {
     }
     return temp[0]
 }
+
+
 // @lc code=end
 

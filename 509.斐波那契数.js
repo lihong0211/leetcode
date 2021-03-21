@@ -41,6 +41,9 @@ const fib = N => {
     }
     return fibImpl(0, 1, N)
 }
+
+
+const flatDeep = arr => Array.isArray(arr) ? arr.reduce((total, cur) => [...total, ...flatDeep(cur)]) : [arr]
 // @lc code=end
 
 

@@ -18,7 +18,7 @@
  * @param {number} n
  * @return {number}
  */
-var guessNumber = function(n) {
+const guessNumber = n => {
     let start = 1
     let end = n
 
