@@ -10,8 +10,7 @@
  * @return {number[][]}
  */
 var generateMatrix = function(n) {
-
-    let arr = [], 
+    let arr = []
         round = 0, // 循环圈数
         index = 1, // 索引
         dir = 1 // 方向

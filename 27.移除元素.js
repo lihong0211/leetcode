@@ -27,8 +27,8 @@
 
 // 一直删除nums中第一个值为val对元素
 var removeElement = function(nums, val) {
-    while(nums.indexOf(val) != -1){
-        nums.splice(nums.indexOf(val), 1);
+    while (nums.includes(val)) {
+        nums.splice(num.indexOf(val), 1)
     }
 };
 

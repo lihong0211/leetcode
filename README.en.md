@@ -1,7 +1,7 @@
 # leetcode
 
 #### Description
-每周40道题！每周40道题！每周40道题！
+分类
 
 #### Software Architecture
 Software architecture description
