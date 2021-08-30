@@ -17,23 +17,42 @@
  * @return {ListNode}
  */
 var deleteDuplicates = function(head) {
-  let p = {
-    val: null,
-    next: head
-  }
-  let val = null
-  while(p.next && p.next.next) {
-    if (p.next.next.val > p.next.val) {
-      p.next = p.next.next
-    } else {
-      val = p.next.val
-      p.next = p.next.next.next
-      while(p.next && p.next.val === val) {
-        p.next = p.next.next
+  const arr = []
+  let p = head
+  let flag = true
+  while (p) {
+    if (p.val === arr[arr.length - 1]) {
+      if (flag) {
+        p = p.next
+      } else {
+        p = p.next
+        flag = true
       }
+    } else {
+      if (flag) {
+        arr.pop()
+      }
+      arr.push(p.val)
+      p = p.next
+      flag = false
     }
   }
-  return p.next
+  if (flag) {
+    arr.pop()
+  }
+  let p1 = head
+  if (!arr.length) return null
+
+  for (let i = 0; i < arr.length; i++) {
+    p1.val = arr[i]
+    if (i === arr.length - 1) {
+      p1.next = null
+    } else {
+      p1 = p1.next
+    }
+  }
+  
+  return head
 };
 // @lc code=end
 
