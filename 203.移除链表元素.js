@@ -37,21 +37,28 @@
 
 // };
 
+// const removeElements = (head, val) => {
+//     let ele = {
+//         next: head
+//     }
+
+//     let cur = ele
+//     while (cur.next) {
+//         if (cur.next.val === val) {
+//             cur.next = cur.next.next
+//         } else {
+//             cur = cur.next
+//         }
+//     }
+
+//     return ele.next
+// }
+
+// 使用递归实现
 const removeElements = (head, val) => {
-    let ele = {
-        next: head
-    }
-
-    let cur = ele
-    while (cur.next) {
-        if (cur.next.val === val) {
-            cur.next = cur.next.next
-        } else {
-            cur = cur.next
-        }
-    }
-
-    return ele.next
+    if (!head) return null
+    head.next = removeElements(head.next, val)
+    return head.val === val ? head.next : head
 }
 // @lc code=end
 

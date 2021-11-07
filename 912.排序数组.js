@@ -33,19 +33,19 @@
 // };
 
 // 冒泡
-const sortArray = nums => {
-    let temp
-    for (let i = 0; i < nums.length; i++) {
-        for (let j = 0; j < nums.length - i; j++) {
-            if (nums[j] > nums[j + 1]) {
-                temp = nums[j + 1]
-                nums[j + 1] = nums[j]
-                nums[j] = temp
-            }
-        }
-    }
-    return nums
-}
+// const sortArray = nums => {
+//     let temp
+//     for (let i = 0; i < nums.length; i++) {
+//         for (let j = 0; j < nums.length - i; j++) {
+//             if (nums[j] > nums[j + 1]) {
+//                 temp = nums[j + 1]
+//                 nums[j + 1] = nums[j]
+//                 nums[j] = temp
+//             }
+//         }
+//     }
+//     return nums
+// }
 
 // 选择排序  关键是两两比较，小的提到最前
 // const sortArray = nums => {
@@ -78,6 +78,35 @@ const sortArray = nums => {
 //     }
 //     return sortArray(left).concat(flag, sortArray(right))
 // }
+
+// 插入排序法
+const sortArray = arr => {
+    for (let i = 1; i < arr.length; i++) {
+        for (let j = i; j >= 1; j--) {
+            if (arr[j] < arr[j - 1]) {
+            // 一步一步往前移
+                swap(arr, j, j - 1)
+            } else break
+        }
+    }
+    function swap(arr, m, n) {
+        const temp = arr[m]
+        arr[m] = arr[n]
+        arr[n] = temp
+    }
+    return arr
+}
+
+// 归并排序法
+const sortArray = nums => {
+    let l = 0
+    let r = nums.length - 1
+
+}
+// 合并两个有序数组
+function merge (arr, l, r, mid) {
+    
+}
 
 
 // @lc code=end

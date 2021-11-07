@@ -25,5 +25,7 @@ var findKthLargest = function(nums, k) {
     return nums[nums.length -k]
 };
 
+// TODO: 使用快速排序算法
+
 // @lc code=end
 
