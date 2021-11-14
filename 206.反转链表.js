@@ -16,30 +16,6 @@
  * @param {ListNode} head
  * @return {ListNode}
  */
-// var reverseList = function(head) {
-//     // 缓存链表各元素的值
-//     let cache = []
-//     let ele = {
-//         next: head
-//     }
-//     while(ele.next) {
-//         cache.push(ele.next.val)
-//         ele = ele.next
-//     }
-//     // 将缓存值翻转
-//     cache.reverse()
-//     let temp = {
-//         next: head
-//     }
-//     // 赋值给链表
-//     while(cache.length) {
-//         temp.next.val = cache.shift()
-//         temp.next = temp.next.next
-//     }
-//     // 返回链表
-//     return head
-// };
-
 const reverseList = head => {
     let cur = head
     let prev = null

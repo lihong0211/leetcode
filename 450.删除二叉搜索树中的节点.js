@@ -19,54 +19,38 @@
  * @return {TreeNode}
  */
 var deleteNode = function(root, key) {
-  if (root && !root.left && !root.right && root.val === key){
-    return null
+  if (!root) return null
+  if (root.val > key) {
+    root.left = deleteNode(root.left, key)
+  } else if (root.val < key) {
+    root.right = deleteNode(root.right, key)
+  } else {
+    if (!root.left && !root.right) root = null
+    else if (root.left) {
+      root.val = prev(root)
+      root.left = deleteNode(root.left, root.val)
+    } else if (root.right) {
+      root.val = next(root)
+      root.right = deleteNode(root.right, root.val)
+    }
   }
-  findK(root, key)
   return root
 };
 
-function findK (root, k) {
-  let cur = root
-  const stack = []
-  while(cur || stack.length) {
-    while(cur) {
-      stack.push(cur)
-      if (cur && cur.left && cur.left.val === k && !cur.right) {
-        cur.left = cur.left.left
-      } else if (cur && cur.right && cur.right.val === k && !cur.left) {
-        cur.right = cur.right.right
-      } else if (cur && cur.left && cur.right && cur.val === k) {
-        const [val, right] = findMinAndRemove(cur.right)
-        cur.val = val
-        cur.right = right
-      } else if (cur && !cur.left && !cur.right && cur.val === k) {
-        cur = null
-        return
-      }
-      cur = cur.left
-    }
-    cur = stack.pop()
-    cur = cur.right
+function prev (root) {
+  root = root.left
+  while(root && root.right) {
+    root = root.right
   }
+  return root.val
 }
 
-function findMinAndRemove (root) {
-  if (!root.left) {
-    const val = root.val
-    root = root.right
-    return [val, root]
+function next (root) {
+  root = root.right
+  while(root && root.left) {
+    root = root.left
   }
-  let cur = root
-  let stack = []
-  while(cur && cur.left) {
-    stack.push(cur)
-    cur = cur.left
-  }
-  const val = cur.val
-  const lastPrev = stack.pop()
-  lastPrev.left = null
-  return [val, root]
+  return root.val
 }
 // @lc code=end
 
