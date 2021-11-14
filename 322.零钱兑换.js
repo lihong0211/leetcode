@@ -21,6 +21,8 @@ const coinChange = (coins, amount) => {
     for (let i = 0; i < dp.length; i++) {
         for (let j = 0; j < coins.length; j++) {
             if (i - coins[j] >= 0) {
+                // [2, 3, 5]
+                // dp[11] = Math.min(dp[9], dp[8], dp[6]) + 1
                 dp[i] = Math.min(dp[i], dp[i- coins[j]] + 1)
             }
         }
