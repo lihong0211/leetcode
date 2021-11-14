@@ -17,50 +17,22 @@
  * @return {number[]}
  */
 
-// FIXME:简单容易理解
-// var preorderTraversal = function(root, arr = []) { 
+// 递归
+// var preorderTraversal = (root, arr = []) => {
 //     if (root) {
-//         // 所谓前序遍历，就是先处理自己，再处理左右！
 //         arr.push(root.val)
 //         preorderTraversal(root.left, arr)
 //         preorderTraversal(root.right, arr)
 //     }
-//     return arr
-// };
-
-// 递归
-const preorderTraversal = (root, arr = []) => {
-    if (root) {
-        arr.push(root.val)
-        preorderTraversal(root.left, arr)
-        preorderTraversal(root.right, arr)
-    }
-}
-
-// 迭代不易理解
-var preorderTraversal = function(root) { 
-    let ret = []
-    let stack = []
-    let cur = root
-    while (cur || stack.length) {
-        while(cur) {
-            ret.push(cur.val)
-            stack.push(cur) // 缓存这个cur
-            cur = cur.left
-        }
-        cur = stack.pop() // 通过这个cur找它的right
-        cur = cur.right
-    }
-    return ret
-};
+// }
 
 // 迭代
-const preorderTraversal = root => {
-    let ret = []
-    let stack = []
+var preorderTraversal = root => {
+    const ret = []
+    const stack = []
     let cur = root
 
-    while (cur & stack.length) {
+    while (cur || stack.length) {
         while (cur) {
             ret.push(cur.val)
             stack.push(cur)

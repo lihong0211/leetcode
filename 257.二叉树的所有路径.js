@@ -17,24 +17,21 @@
  * @return {string[]}
  */
 // 携值递归
-var binaryTreePaths = function(root) {
-  let arr = []
-  function traverse (node, payload) {
-    if (node == null) return
-    payload.push(node.val)
-    if (!node.left && !node.right) {
-      arr.push(payload.join('->'))
-      return
-    }
-    if (node.left) {
-      traverse(node.left, [...payload])
-    }
-    if (node.right) {
-      traverse(node.right, [...payload])
-    }
+function dfs (root, vals, ret) {
+  if (!root) return null
+  vals.push(root.val)
+  if (!root.left && !root.right) {
+    ret.push(vals.join('->'))
+    return
   }
-  traverse(root, [])
-  return arr
+  dfs(root.left, [...vals], ret)
+  dfs(root.right, [...vals], ret)
+}
+var binaryTreePaths = function(root) {
+  const ret = []
+  const vals = []
+  dfs(root, vals, ret)
+  return ret
 };
 // @lc code=end
 

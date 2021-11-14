@@ -11,18 +11,26 @@
  * @return {number}
  */
 
-//  暴力递归 这个逻辑其实是对对  只能超时。。。
-var uniquePaths = function(m, n) {
-    if (m == 0 || n == 0) {
-        return 0
+var uniquePaths = function (m, n) {
+    const dp = []
+    for(let i = 0; i < n; i++) {
+      dp.push([])
     }
-    if ((m === 1 && n === 1)) {
-        return 1
+    dp[0][0] = 1
+    for(let i = 1; i < m; i++) {
+      dp[0][i] = 1
     }
-     else {
-        return uniquePaths(m -1, n) + uniquePaths(m, n - 1)
+    for(let j = 1; j < n; j++) {
+      dp[j][0] = 1
     }
-};
+
+    for (let i = 1; i < n; i++) {
+        for (let j = 1; j < m; j++) {
+            dp[i][j] = dp[i - 1][j] + dp[i][j - 1]
+        }
+    }
+    return dp[n-1][m-1]
+}
 // uniquePaths(51, 9)
 // @lc code=end
 

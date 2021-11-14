@@ -16,7 +16,7 @@
  * @param {TreeNode} root
  * @return {number[]}
  */
-const inorderTraversal = (root, arr = []) => {
+var inorderTraversal = (root, arr = []) => {
     if(root) {
         inorderTraversal(root.left, arr)
         arr.push(root.val)
@@ -24,5 +24,21 @@ const inorderTraversal = (root, arr = []) => {
     }
     return arr
 };
+
+var inorderTraversal = root => {
+    const ret = []
+    const stack = []
+    let cur = root
+    while(cur || stack.length) {
+        while(cur) {
+            stack.push(cur)
+            cur = cur.left
+        }
+        cur = stack.pop()
+        ret.push(cur.val)
+        cur = cur.right
+    }
+    return ret
+}
 // @lc code=end
 
