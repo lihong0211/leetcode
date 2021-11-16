@@ -10,25 +10,21 @@
  * @return {number[][]}
  */
 const permute = (nums) => {
-    const backtrack = (list, temp, nums) => {
-        if (temp.length === nums.length) {
-            return list.push([...temp])
-        }
-        for (let i = 0; i < nums.length; i++) {
-            if (temp.includes(nums[i])) continue
-            temp.push(nums[i])
-            backtrack(list, temp, nums)
-            temp.pop()
-        }
-
-    }
-
-    const list = []
-
-    backtrack(list, [], nums)
-
-    return list
-
+    const ret = []
+    backTrack(nums, [], ret)
+    return ret
 };
+
+function backTrack (nums, path, ret) {
+    if(path.length === nums.length) {
+        return ret.push([...path])
+    }
+    for (let i = 0; i < nums.length; i++) {
+        if (path.includes(nums[i])) continue
+        path.push(nums[i])
+        backTrack(nums, path, ret)
+        path.pop()
+    }
+}
 // @lc code=end
 

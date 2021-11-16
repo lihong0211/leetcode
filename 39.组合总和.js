@@ -19,8 +19,7 @@ var combinationSum = function(candidates, target) {
 
 function backtrack(nums, remain, path, start, ret) {
   if (remain === 0) {
-    ret.push(path)
-    return
+    return ret.push(path)
   }
   for (let i = start; i < nums.length; i++) {
     if (nums[i] > remain) {
