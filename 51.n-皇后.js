@@ -10,59 +10,47 @@
  * @return {string[][]}
  */
 var solveNQueens = function(n) {
-    const list = []
-    
-    const isSafe = (board, row, col) => {
-        for (let i = 0; i < row; i++) {
-            for (let j = 0; j < col; j++) {
-                // 横竖
-                if (board[row][j] === 'Q' || board[i][col] === 'Q') {
-                    return false
-                }
-                // 斜线
-                for (let k = 0; k < n; k++) {
-                    if (board[row + k][j + k] && board[row + k][j + k] === 'Q') {
-                        return false
-                    } 
-                    if (board[row - k][j -k] && board[row - k][j - k] === 'Q') {
-                        return false
-                    } 
-                    if (board[row + k][j - k] && board[row + k][j - k] === 'Q') {
-                        return false
-                    }
-                    if (board[row - k][j + k] && board[row - k][j + k] === 'Q') {
-                        return false
-                    }
-                }
-            }
-        }
-        return true
+    const init = Array(n).fill('.')
+    const board = []   
+    for (let i = 0; i < n; i++) {
+        board.push([...init])
     }
-    // 构建数据[['.', '.', '.', '.'], ['.', '.', '.', '.']]
-    const init = new Array(n).fill('.')
-    const board = new Array(n).fill(init)
-
-    const setQueen = board => {
-        let count = 0
-        for (let i = 0; i < n; i++) {
-            for (let j = 0; j < n; j++) {
-                if (isSafe(board, i, j)) {
-                    board[i][j] = 'Q'
-                    count++
-                    if (count === n) {
-                        return list.push([board.map(item => item.join(''))])
-                    }
-                    if (setQueen(board)) return true
-                    board[i][j] = '.'
-                    count--
-                }
-            }
-            return false
-        }
-    }
-
-    setQueen(board)
-    return list
+    const ret = []
+    backTrack(board, ret, 0)
+    return ret
 };
+
+function backTrack(board, ret, row) {
+    if (row === board.length) {
+        return ret.push(board.map(item => {
+            return item.join('')
+        }))
+    }
+    const height = board[row].length
+    for (let i = 0; i < height; i++) {
+        if (!isValid(board, row, i)) continue
+        board[row][i] = 'Q'
+        backTrack(board, ret, row + 1)
+        board[row][i] = '.'
+    }
+}
+
+function isValid(board, row, col) {
+    const width = board[0].length
+    const height = board.length
+    // 当前列
+    for (let i = 0; i < height; i++) {
+        if (board[i][col] === 'Q') return false
+    }
+    // 右上
+    for (let i = row - 1, j = col + 1; i >= 0 && j < width; i--, j++) {
+        if (board[i][j] === 'Q') return false
+    }
+    // 左上
+    for (let i = row - 1, j = col - 1; i >= 0 && j >= 0; i--, j--) {
+        if (board[i][j] === 'Q') return false
+    }
+    return true
+}
 // @lc code=end
 

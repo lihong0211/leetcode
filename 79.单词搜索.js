@@ -24,9 +24,6 @@ const exist = (board, word) => {
         const letter = board[i][j]
         // 不匹配
         if (letter !== word[idx]) return false
-        if (letter === 'S') {
-            debugger
-        }
         // 已经找到最后一个
         if (idx === word.length - 1) return true
         // 防止回找
