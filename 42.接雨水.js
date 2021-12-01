@@ -74,6 +74,23 @@
 //   return ret
 // }
 
+// 单调递减栈
+var trap = function (height) {
+  const stack = [] // 按高度单调递减--索引
+  let i = 0, ret = 0
+  while (i < height.length) {
+    while(stack.length && height[stack[stack.length - 1]] < height[i]) {
+      const top = stack.pop()
+      if (!stack.length) break // 当前柱子是最高的柱子了
+      const dis = i - stack[stack.length - 1] - 1
+      const ht = Math.min(height[i], height[stack[stack.length - 1]]) - height[top]
+      ret += dis * ht
+    }
+    stack.push(i++)
+  }
+  return ret
+}
+
 
 // @lc code=end
 
