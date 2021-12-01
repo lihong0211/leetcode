@@ -9,22 +9,20 @@
  * @param {number[]} nums
  * @return {boolean}
  */
-var containsDuplicate = function(nums) {
-  // 时间复杂度高
-  // let cache = []
-  // let has = false
-  // for (let i = 0; i < nums.length; i++) {
-  //   if (cache.indexOf(nums[i]) != -1) {
-  //     return true
-  //   } else {
-  //     cache.push(nums[i])
-  //   }
-  // }
-  // return has
-  // 空间复杂度高
-  return Array.from([...new Set(nums)]).length < nums.length
+// var containsDuplicate = function(nums) {
+//   return Array.from([...new Set(nums)]).length < nums.length
+// };
 
-  // TODO: 冒泡排序或者选择排序  每完成一轮比较相邻两个元素大小
-};
+var containsDuplicate = function (nums) {
+  let hash = {}
+  for(let i = 0; i < nums.length; i++) {
+    if (hash[nums[i]] === undefined) {
+      hash[nums[i]] = nums[i]
+    } else {
+      return true
+    }
+  }
+  return false
+}
 // @lc code=end
 
