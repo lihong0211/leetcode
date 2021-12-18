@@ -21,13 +21,22 @@ const reverseList = head => {
     let prev = null
 
     while (cur !== null) {
-        let next = cur.next
-        cur.next = prev
-        prev = cur
-        cur = next
+        const next = cur.next // 缓存next
+        cur.next = prev  // 反转
+        prev = cur  // 右移prev
+        cur = next // 右移cur
     }
 
     return prev
 }
+
+var reverseList = function(head) {
+    if (!head || !head.next) return head
+    const cur = reverseList(head.next)
+    head.next.next = head
+    head.next = null
+    console.log(head)
+    return cur
+};
 // @lc code=end
 

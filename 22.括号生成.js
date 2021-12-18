@@ -9,35 +9,27 @@
  * @param {number} n
  * @return {string[]}
  */
-var generateParenthesis = function(n) {
-  const stack = []
-  const arr = Array(n).fill('(').concat(Array(n).fill(')'))
-  const used = Array(2 * n).fill(false)
-  const ret = []
-  console.log(arr)
-  backTrack(arr, '', ret, used, stack, n)
-  return ret
+ var generateParenthesis = function(n) {
+  const res = []
+  backTrack('', 0, 0, n, res)
+  return res
 };
 
-function backTrack (arr, path, ret, used, stack, n) {
-  if (path.length === 2 * n && !stack.length) {
-    console.log(11, path)
-    ret.push(path)
+function backTrack (path, left, right, n, res) {
+  if (path.length === 2 * n) {
+      res.push(path)
   }
-  for (let i = 0; i < arr.length; i++) {
-    if (!stack.length && arr[i] === ')') continue
-    if (!used[i]) {
-      path += arr[i]
-      used[i] = true
-      if (arr[i] === '(') {
-        stack.push(arr[i])
-      } else {
-        stack.pop()
-      }
-      backTrack(arr, path, ret, used, stack, n)
+  // 
+  if (left < n) {
+      path += '('
+      backTrack(path, left + 1, right, n, res)
       path = path.slice(0, -1)
-      used[i] = false
-    }
+  }
+  // 这里left > right条件是减枝
+  if (left > right) {
+      path += ')'
+      backTrack(path, left, right + 1, n, res)
+      path = path.slice(0, -1)
   }
 }
 
