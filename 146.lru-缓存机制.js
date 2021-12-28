@@ -9,118 +9,80 @@
  * @param {number} capacity
  */
 
-// TODO: 虚拟头部尾部指针
- var LRUCache = function(capacity) {
-  this.hash = {}
-  this.length = 0
-  this.capacity = capacity
-  this.head = this.tail = {
-    key: null,
-    val: null,
-    next: null,
-    prev: null
+// 这个题如果不用两个虚拟头部尾部节点 边界条件直接弄死人
+class LinkListNode {
+  constructor (key, val) {
+    this.key = key
+    this.val = val
+    this.next = null
+    this.prev = null
+  }
+}
+
+class LRUCache {
+  constructor (capacity) {
+    this.hash = {}
+    this.length = 0
+    this.capacity = capacity
+    this.head = new LinkListNode()
+    this.tail = new LinkListNode()
+    this.head.next = this.tail
+    this.tail.prev = this.head
+  }
+
+  get (key) {
+    const node = this.hash[key]
+    if (node) {
+      this.moveTotail(node)
+      return node.val
+    }
+    return -1
+  }
+
+  put (key, val) {
+    let node = this.hash[key]
+    if (node) {
+      node.val = val
+      this.moveTotail(node)
+    } else {
+      node = new LinkListNode (key, val)
+      node.val = val
+      this.addToTail(node)
+      this.hash[key] = node
+      this.length++
+      if (this.length > this.capacity) {
+        const key = this.removeHead()
+        delete this.hash[key]
+        this.length--
+      }
+    }
+  }
+
+  moveTotail (node) {
+    this.removeFromList(node)
+    this.addToTail(node)
+  }
+
+  removeFromList (node) {
+    const prev = node.prev
+    const next = node.next
+    prev.next = next
+    next.prev = prev
+  }
+
+  addToTail (node) {
+    const prev = this.tail.prev
+    prev.next = node
+    node.prev = prev
+    node.next = this.tail
+    this.tail.prev = node
+  }
+
+  removeHead () {
+    const node = this.head.next
+    this.removeFromList(node)
+    return node.key
   }
 };
-
-/** 
-* @param {number} key
-* @return {number}
-*/
-
-LRUCache.prototype.init = function(key, value) {
-  this.head.key = this.tail.key = key
-  this.head.val = this.tail.val = value
-  this.hash[key] = this.head
-}
-
-LRUCache.prototype.removeHead = function() {
-  // console.log(this.head, 111, this.hash)
-
-  this.head = this.head.next
-  delete this.hash[this.head.prev.key]
-  this.head.prev  = null
-  this.length--
-}
-
-LRUCache.prototype.moveToTail = function(key) {
-  if (this.length < 2 || this.hash[key] === this.tail) return
-  if (this.hash[key].prev && this.hash[key].next) {
-    this.hash[key].next.prev = this.hash[key].prev
-    this.hash[key].prev.next = this.hash[key].next
-    this.hash[key].prev = this.tail
-    this.hash[key].next = null
-    this.tail = this.hash[key]
-  } else if (this.hash[key] === this.head) {
-    const next = this.head.next
-    this.tail.next = this.head
-    this.head.prev = this.tail
-    this.tail = this.tail.next
-    this.tail.next = null
-    if (key === 2) {
-      console.log(this.head, 'head')
-      console.log(next, 'next')
-    }
-    this.head = next
-    this.head.prev = null
-  }
-  // console.log(this.hash, key)
-}
-
-LRUCache.prototype.addToTail = function(key, value) {
-  this.hash[key] = {
-    key: key,
-    val: value,
-    prev: null,
-    next: null
-  }
-
-  this.tail.next = this.hash[key]
-  this.hash[key].prev = this.tail
-  this.tail = this.hash[key]
-  this.length++
-}
-
-LRUCache.prototype.get = function(key) {
-  if (this.hash[key]) {
-    if (this.capacity > 1) this.moveToTail(key)
-    return this.tail.val
-  }
-  return -1
-};
-
-/** 
-* @param {number} key 
-* @param {number} value
-* @return {void}
-*/
-LRUCache.prototype.put = function(key, value) {
-  if (!this.length) {
-    this.init(key, value)
-    this.length++
-  } else if (this.hash[key]) {
-    this.moveToTail(key)
-    this.tail.val = value
-  } else {
-    if (this.capacity === 1) {
-      delete this.hash[this.head.key]
-      this.init(key, value)
-      return
-    }
-    if (this.length === this.capacity) {
-      this.removeHead()
-    }
-    this.addToTail (key, value)
-  }
-  // if (key === 4) {
-  //   console.log(this.hash)
-  // }
-};
-
-/**
- * Your LRUCache object will be instantiated and called as such:
- * var obj = new LRUCache(capacity)
- * var param_1 = obj.get(key)
- * obj.put(key,value)
- */
 // @lc code=end
 
