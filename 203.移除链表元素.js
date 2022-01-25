@@ -37,22 +37,19 @@
 
 // };
 
-// const removeElements = (head, val) => {
-//     let ele = {
-//         next: head
-//     }
-
-//     let cur = ele
-//     while (cur.next) {
-//         if (cur.next.val === val) {
-//             cur.next = cur.next.next
-//         } else {
-//             cur = cur.next
-//         }
-//     }
-
-//     return ele.next
-// }
+var removeElements = function(head, val) {
+    const preHead = new ListNode(-1)
+    preHead.next = head
+    let p = preHead
+    while (p && p.next) {
+        if (p.next.val === val) {
+            p.next = p.next.next
+        } else {
+            p = p.next
+        }
+    }
+    return preHead.next
+};
 
 // 使用递归实现
 const removeElements = (head, val) => {

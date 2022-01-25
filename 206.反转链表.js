@@ -35,7 +35,6 @@ var reverseList = function(head) {
     const cur = reverseList(head.next)
     head.next.next = head
     head.next = null
-    console.log(head)
     return cur
 };
 // @lc code=end

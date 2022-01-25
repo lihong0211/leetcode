@@ -36,5 +36,18 @@
   }
   return head
 };
+
+var deleteDuplicates = function(head) {
+  const preHead = new ListNode(-1)
+  preHead.next = head
+  let p = preHead.next
+  while (p && p.next) {
+    while (p && p.next && p.val === p.next.val) {
+      p.next = p.next.next
+    }
+    p = p.next
+  }
+  return preHead.next
+};
 // @lc code=end
 
