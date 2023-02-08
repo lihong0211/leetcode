@@ -10,103 +10,197 @@
  * @return {number[]}
  */
 
-//  TODO: 选择排序、插入排序、冒泡排序、快速排序、归并排序
-
-// var sortArray = function(nums) {
-//     nums.sort((m, n) => m - n)
-//     return nums
-// };
-
-// 冒泡  关键是两两比较，大的靠后
-// const sortArray = nums => {
-//     for(let i = nums.length, temp; i > 0; i--) {
-//         for (let j = 0; j < i; j++) {
-//             // 冒泡到最后的位置去
-//             if (nums[i] < nums[j]) {
-//                 temp = nums[i]
-//                 nums[i] = nums[j]
-//                 nums[j] = temp
-//             }
-//         }
-//     }
-//     return nums
-// };
+function swap (arr, i, j) {
+    const temp = arr[i]
+    arr[i] = arr[j]
+    arr[j] = temp
+}
 
 // 冒泡
-// const sortArray = nums => {
-//     let temp
-//     for (let i = 0; i < nums.length; i++) {
-//         for (let j = 0; j < nums.length - i; j++) {
-//             if (nums[j] > nums[j + 1]) {
-//                 temp = nums[j + 1]
-//                 nums[j + 1] = nums[j]
-//                 nums[j] = temp
-//             }
-//         }
-//     }
-//     return nums
-// }
-
-// 选择排序  关键是两两比较，小的提到最前
-// const sortArray = nums => {
-//     for (let i = 0; i < nums.length; i++) {
-//         let min = nums[i]
-//         for (let j = i + 1; j < nums.length; j++) {
-//             if (nums[j] < min) {
-//                 let temp = nums[i]
-//                 min = nums[j]
-//                 nums[i] = nums[j] 
-//                 nums[j] = temp
-//             }
-//         }
-//     }
-//     return nums
-// };
-
-// 快速排序
-// const sortArray = nums => {
-//     const len = nums.length
-//     const left = []
-//     const right = []
-//     const flag = nums[0]
-//     for (let i = 0; i < len; i++) {
-//         if (nums[i] > flag) {
-//             right.push(nums[i])
-//         } else {
-//             left.push(nums[i])
-//         }
-//     }
-//     return sortArray(left).concat(flag, sortArray(right))
-// }
-
-// 插入排序法
-const sortArray = arr => {
-    for (let i = 1; i < arr.length; i++) {
-        for (let j = i; j >= 1; j--) {
+var sortArray = function (arr) {
+    const len = arr.length
+    for (let i = 0; i < len; i++) {
+        for (let j = len - 1; j > i; j--) {
             if (arr[j] < arr[j - 1]) {
-            // 一步一步往前移
                 swap(arr, j, j - 1)
-            } else break
+            }
         }
-    }
-    function swap(arr, m, n) {
-        const temp = arr[m]
-        arr[m] = arr[n]
-        arr[n] = temp
     }
     return arr
 }
 
-// 归并排序法
-const sortArray = nums => {
-    let l = 0
-    let r = nums.length - 1
+// 选择
+var sortArray = function (arr) {
+    const len = arr.length
+    for (let i = 0; i < len; i++) {
+        let minIdx = i, min = arr[i]
+        for (let j = i + 1; j < len; j++) {
+            if (arr[j] < min) {
+                min = arr[j]
+                minIdx = j
+            }
+        }
+        swap(arr, i, minIdx)
+    }
+    return arr
+}
 
+
+// 插入
+var sortArray = function (arr) {
+    const len = arr.length
+    for (let i = 1; i < len; i++) {
+        let prev = i - 1
+        const temp = arr[i]
+        while(prev >=0 && arr[prev] > temp) {
+            arr[prev + 1] = arr[prev]
+            prev -= 1
+        }
+        arr[prev + 1] = temp
+    }
+    return arr
 }
-// 合并两个有序数组
-function merge (arr, l, r, mid) {
-    
+
+// 快速
+var sortArray = function (arr) {
+    if (arr.length < 2) return arr
+    const len = arr.length
+    const left = [], right = []
+    const mid = arr[0]
+    for (let i = 1; i < len; i++) {
+        if (arr[i] < mid) {
+            left.push(arr[i])
+        } else {
+            right.push(arr[i])
+        }
+    }
+    return sortArray(left).concat(mid, sortArray(right))
 }
+
+// 归并
+var sortArray = function (arr) {
+    if (arr.length < 2) return arr
+    const mid = Math.floor(arr.length / 2)
+    const left = arr.slice(0, mid)
+    const right = arr.slice(mid)
+    return merge(sortArray(left), sortArray(right))
+}
+function merge (left, right) {
+    const res = []
+    const len = left.length + right.length
+    for (i = 0, li = 0, ri = 0; i < len; i++) {
+        if (li === left.length) {
+            res.push(right[ri])
+            ri++
+        } else if (ri === right.length) {
+            res.push(left[li])
+            li++
+        } else if (left[li] < right[ri]) {
+            res.push(left[li])
+            li++
+        } else {
+            res.push(right[ri])
+            ri++
+        }
+    }
+    return res
+}
+
+// 希尔
+var sortArray = function (arr) {
+    const len = arr.length
+    let gap = Math.floor(len / 2)
+    while (gap >= 1) {
+        for (let i = gap; i < len; i++) {
+            let prev = i - gap
+            const temp = arr[i]
+            while(prev >= 0 && arr[prev] > temp) {
+                arr[prev + gap] = arr[prev]
+                prev -= gap
+            }
+            arr[prev + gap] = temp
+        }
+        gap = Math.floor(gap / 2)
+    }
+    return arr
+}
+
+// 计数
+var sortArray = function (arr) {
+    const len = arr.length
+    const max = Math.max(...arr)
+    const min = Math.min(...arr)
+  
+    const countArr = Array(max - min + 1).fill(0)
+  
+    for (let i = 0; i < len; i++) {
+      countArr[arr[i] - min] += 1
+    }
+  
+    for (let i = 0, j = 0; i < countArr.length; i++) {
+      while(countArr[i] > 0) {
+        arr[j] = min + i
+        countArr[i] -= 1
+        j++
+      }
+    }
+    return arr
+}
+
+
+// 桶排序  超时了
+var sortArray = function (arr) {
+    const len = arr.length
+    const max = Math.max(...arr)
+    const min = Math.min(...arr)
+  
+    const bucketNum = Math.floor((max - min) / len) + 1
+    const bucketArr = Array(bucketNum).fill([])
+  
+    for (let i = 0; i < len; i++) {
+        const idx = Math.floor((arr[i] - min) / len)
+        bucketArr[idx].push(arr[i])
+    }
+
+  
+    for (let i = 0, j = 0; i < bucketNum; i++) {
+        bucketArr[i].sort((m, n) => m - n)
+        while(bucketArr[i].length) {
+            arr[j] = bucketArr[i].shift()
+            j++
+        }
+    }
+    return arr
+}
+
+var sortArray = function (arr) {
+    const len = arr.length
+    if (len <= 1) return arr
+    for (let i = Math.floor(len / 2); i >= 0; i--) {
+      maxHeapify(arr, i, len)
+    }
+    for (let j = 0; j < len; j++) {
+      swap(arr, 0, len - 1 - j)
+      maxHeapify(arr, 0, len - 1 - j)
+    }
+    return arr
+  }
+  
+  function maxHeapify (arr, i, size) {
+    let l = i * 2 + 1
+    let r = i * 2 + 2
+    let largest = i
+    if (l < size && arr[l] > arr[largest]) {
+      largest = l
+    }
+    if (r < size && arr[r] > arr[largest]) {
+      largest = r
+    }
+    if (largest !== i) {
+      swap(arr, i, largest)
+      maxHeapify(arr, largest, size)
+    }
+  }
 
 
 // @lc code=end

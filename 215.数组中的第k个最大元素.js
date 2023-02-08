@@ -10,22 +10,40 @@
  * @param {number} k
  * @return {number}
  */
-var findKthLargest = function(nums, k) {
-    // 冒泡  关键是两两比较，大的靠后
-    for(let i = nums.length, temp;  i > 0; i--) {
-        for (let j = 0; j < i; j++) {
-            // 冒泡到最后的位置去
-            if (nums[i] < nums[j]) {
-                temp = nums[i]
-                nums[i] = nums[j]
-                nums[j] = temp
-            }
-        }
+
+function findKthLargest (arr, k) {
+    const len = arr.length
+    for (let i = Math.floor(len / 2); i >= 0; i--) {
+        // 构建最大堆
+        maxHeapify(arr, i, len)
     }
-    return nums[nums.length -k]
-};
+    // 执行k-1次下沉
+    for (let j = 0; j < k - 1; j++) {
+        swap(arr, 0, len - 1 - j)
+        maxHeapify(arr, 0, len - 1 - j)
+    }
+    // 剩下的最大堆顶部为第k大的值
+    return arr[0]
+}
+  
+function maxHeapify (arr, i, size) {
+    let l = i * 2 + 1
+    let r = i * 2 + 2
+    let largest = i
+    if (l < size && arr[l] > arr[largest]) {
+        largest = l
+    }
+    if (r < size && arr[r] > arr[largest]) {
+        largest = r
+    }
+    if (largest !== i) {
+        swap(arr, i, largest)
+        maxHeapify(arr, largest, size)
+    }
+  }
 
-// TODO: 使用快速排序算法
-
+function swap (arr, i, j) {
+    [arr[i], arr[j]] = [arr[j], arr[i]]
+}
 // @lc code=end
 
