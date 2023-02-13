@@ -54,5 +54,23 @@ var deleteDuplicates = function(head) {
   
   return head
 };
+
+
+var deleteDuplicates = function (head) {
+  const map = new Map()
+  const prevHead = new ListNode()
+  prevHead.next = head
+  let p = prevHead
+  while (p && p.next) {
+      if (map.has(p.next.val)) {
+          p.next = p.next.next
+      } else {
+          map.set(p.next.val, true)
+          p = p.next
+      }
+      
+  }
+  return prevHead.next
+}
 // @lc code=end
 

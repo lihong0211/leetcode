@@ -16,7 +16,7 @@
  * @param {ListNode} head
  * @return {ListNode}
  */
-const reverseList = head => {
+var reverseList = head => {
     let cur = head
     let prev = null
 
@@ -30,6 +30,7 @@ const reverseList = head => {
     return prev
 }
 
+// 递归 栈内存消耗大
 var reverseList = function(head) {
     if (!head || !head.next) return head
     const cur = reverseList(head.next)

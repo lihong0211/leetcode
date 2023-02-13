@@ -12,35 +12,46 @@
  * @return {number}
  */
 
- // 二分法   是真的看不懂
+ // 二分法
 var findKthNumber = function(m, n, k) {
-    if(k == 1){
-    return 1;
-    } 
-    if(k == m*n){
-    return m*n;
-    } 
     let left = 1
     let right = m*n
-    var num
     while(left < right) {
-      num = (left+right) >> 1;
-      let temp = enough(m, n, num);
-      if(temp < k) {
-        left = num+1;
+      const mid = (left+right) >> 1;
+      if(count(m, n, mid) >= k) {
+        right = mid
+      } else {
+        left = mid+1;
       }
-      else right = num;
     }
     return left;
   
 };
-// 干嘛？
-function enough(m,n,num){
+// 统计乘法表中有多少个小于等于 k 的数目
+function count(m, n, num){
     let count = 0;
-    for(let i = 1; i<=m; ++i) {
-        count += Math.min(parseInt(num/i), n);
+    for(let i = 1; i <= m; ++i) {
+        count += Math.min(parseInt(num / i), n);
     }
-    return count;
+    return count
 }
+
+// 用优先队列  用例通过84%, 超时了。
+// var findKthNumber = function (m, n, k) {
+//   const pq = new MinPriorityQueue({ 
+//     compare: (a, b) => (a[0] + 1) * (a[1] + 1) - (b[0] + 1) * (b[1] + 1)  
+//   });
+  
+//   for (let i = 0; i < m; i++) {
+//     pq.enqueue([i, 0])
+//   }
+  
+//   while (k-- >= 0 && pq.size()) {
+//     const [i, j] = pq.dequeue();
+//     if (!k) return (i + 1) * (j + 1)
+//     if (j + 1 < n) pq.enqueue([i, j + 1]);
+//   }
+// }
+
 // @lc code=end
 

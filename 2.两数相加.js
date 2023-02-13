@@ -42,5 +42,33 @@ var addTwoNumbers = function(l1, l2) {
     const total = toNumber(l1) + toNumber(l2)
     return toLinkList(total)
 };
+
+var addTwoNumbers = function (l1, l2) {
+    const preHead = new ListNode()
+    let more = 0
+    let p = preHead
+    while(l1 && l2) {
+        const val = l1.val + l2.val + more
+        more = val > 9 ? 1 : 0
+        l1.val = val % 10
+        p.next = l1
+        l1 = l1.next
+        l2 = l2.next
+        p = p.next
+    }
+    if (!l1 && !l2) {
+        if (more) p.next = new ListNode(1)
+    } else if (l1 || l2){
+        p.next = l1 || l2
+        while (p.next) {
+            const val = p.next.val + more
+            more = val > 9 ? 1 : 0
+            p.next.val = val % 10
+            p = p.next
+        }
+        if (more) p.next = new ListNode(1)
+    }
+    return preHead.next
+}
 // @lc code=end
 
