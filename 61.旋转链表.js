@@ -18,21 +18,27 @@
  * @return {ListNode}
  */
 var rotateRight = function(head, k) {
-  const arr = []
-  let p = head
+  if (!head || !k || !head.next) return head
+  let p = head, num = 0
   while (p) {
-    arr.push(p.val)
+    num++
     p = p.next
   }
-  for (let i = 0; i < k % arr.length; i++) {
-    arr.unshift(arr.pop())
+  if (!(k % num)) return head
+
+  let slow = fast = head
+  let count = 0
+  while (fast && fast.next) {
+    fast = fast.next
+    if (count >= (k % num)) {
+      slow = slow.next
+    }
+    count++
   }
-  let p1 = head
-  while (p1) {
-    p1.val = arr.shift()
-    p1 = p1.next
-  }
-  return head
+  const next = slow.next
+  slow.next = null
+  fast.next = head
+  return next
 };
 // @lc code=end
 

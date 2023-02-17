@@ -23,9 +23,14 @@ var isPalindrome = function(head) {
     arr.push(p.val)
     p = p.next
   }
-  const left = arr.splice(0, arr.length / 2).join('')
-  const right = arr.length > left.length ? arr.splice(1).reverse().join('') : arr.reverse().join('')
-  return left === right
+
+  // return arr.join('') === arr.reverse().join('')
+  let left = 0, right = arr.length - 1
+  while (arr[left] === arr[right] && right >= left) {
+    left++
+    right--
+  }
+  return left === right + 2 || left === right + 1
 };
 // @lc code=end
 

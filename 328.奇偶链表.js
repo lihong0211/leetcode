@@ -17,32 +17,17 @@
  * @return {ListNode}
  */
 var oddEvenList = function(head) {
-    // TODO: 原地算法
-    // let ele = {
-    //     next: head
-    // }
-    // let cur = ele
-    // let count = 1
-    // while (ele.next) {
-    //     if (!(count % 2)) {
-    //         cur.next
-    //     }
-    //     count++
-    // }
-    // return head
-
-    const toNumber = link => {
-        let arr = []
-        let ele = {
-            next: link
-        }
-        while(ele.next) {
-            arr.push(ele.next.val)
-            ele.next = ele.next.next
-        }
-        return BigInt(arr.reverse().join(''))
+    if (!head) return head
+    const evenHead = head.next
+    let odd = head, even = evenHead
+    while (even && even.next) {
+        odd.next = even.next
+        odd = odd.next
+        even.next = odd.next
+        even = even.next
     }
-    
+    odd.next = evenHead
+    return head
 };
 // @lc code=end
 

@@ -38,3 +38,7 @@ var removeNthFromEnd = function(head, n) {
 };
 // @lc code=end
 
+
+// @after-stub-for-debug-begin
+module.exports = removeNthFromEnd;
+// @after-stub-for-debug-end

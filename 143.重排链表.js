@@ -36,5 +36,29 @@ var reorderList = function(head) {
   }
   return head
 };
+
+var reorderList = function(head) {
+  let p = head, count = 0
+  hash = {}
+  while (p) {
+    hash[count] = p
+    p = p.next
+    count++
+  }
+  let left = 1, right = count - 1
+  let p1 = head
+  for (let i = 0; i < count - 1; i++) {
+    if (!(i % 2)) {
+      hash[right].next = null
+      p1.next = hash[right]
+      right--
+    } else {
+      hash[left].next = null
+      p1.next = hash[left]
+      left++
+    }
+    p1 = p1.next
+  }
+};
 // @lc code=end
 

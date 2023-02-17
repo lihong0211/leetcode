@@ -57,18 +57,21 @@ var deleteDuplicates = function(head) {
 
 
 var deleteDuplicates = function (head) {
-  const map = new Map()
   const prevHead = new ListNode()
   prevHead.next = head
-  let p = prevHead
-  while (p && p.next) {
-      if (map.has(p.next.val)) {
-          p.next = p.next.next
-      } else {
-          map.set(p.next.val, true)
-          p = p.next
-      }
-      
+  let pre = prevHead, cur = head
+  while (cur) {
+    while (cur.next && cur.val === cur.next.val) {
+      // 指针跳过重复元素
+      cur = cur.next
+    }
+    if (pre.next === cur) {
+      pre = pre.next
+    } else {
+      // 删除所有重复元素
+      pre.next = cur.next
+    }
+    cur = cur.next
   }
   return prevHead.next
 }

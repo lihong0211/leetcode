@@ -18,27 +18,29 @@
  * @return {ListNode}
  */
 var mergeKLists = function(lists) {
-    const len = lists.length
-    if(len == 0) return null;
-    if(len == 1) return lists[0]
-    let list = []
-    lists.forEach(item => {
-        while(item) {
-            list.push(item.val)
-            item = item.next
-        }
-    })
-    list.sort((m, n) => m - n)
-    if (!list.length) {
-        return null
+    if (!lists.length) return null
+    let res = lists[0]
+    for (let i = 1; i < lists.length; i++) {
+        res = mergeTwoLists(res, lists[i])
     }
-    let head = new ListNode(list.shift())
-    let next = head
-    list.forEach(item => {
-        next.next = new ListNode(item)
-        next = next.next
-    })
-    return head
+    return res
 };
+
+var mergeTwoLists = function(l1, l2) {
+    const preHead = new ListNode(-1)
+    let p = preHead
+    while (l1 && l2) {
+      if (l1.val > l2.val) {
+        p.next = l2
+        l2 = l2.next
+      } else {
+        p.next = l1
+        l1 = l1.next
+      }
+      p = p.next
+    }
+    p.next = l1 || l2
+    return preHead.next
+  };
 // @lc code=end
 
